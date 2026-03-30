@@ -1,0 +1,141 @@
+:host {
+  --azul-marino: #0a2678;
+  --fondo-app: #f8fafd;
+  --input-border: #eef2f8;
+}
+
+/* --- ESTRUCTURA DE PANTALLA COMPLETA --- */
+.app-container {
+  display: flex;
+  height: 100vh; /* Altura exacta de la ventana */
+  width: 100%;
+  overflow: hidden; /* Evita scroll doble */
+  background-color: var(--fondo-app);
+}
+
+.sidebar {
+  width: 280px;
+  background-color: #ffffff;
+  height: 100%; /* Sidebar siempre al 100% */
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #edf2f9;
+  flex-shrink: 0;
+  z-index: 1000;
+}
+
+.content-area {
+  flex-grow: 1;
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 40px;
+}
+
+/* --- COMPONENTES --- */
+.azul-marino { color: var(--azul-marino); }
+
+.logo-box {
+  background: var(--azul-marino);
+  color: white;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.nav-link {
+  padding: 12px 15px;
+  border-radius: 12px;
+  margin-bottom: 4px;
+  transition: all 0.2s;
+  color: #4a5568 !important;
+}
+
+.nav-link:hover { background-color: #f4f7fa; }
+
+.nav-link.active {
+  background-color: #ebf0ff;
+  color: var(--azul-marino) !important;
+  font-weight: 600;
+}
+
+.card-custom {
+  border-radius: 40px !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.02) !important;
+  border: none;
+}
+
+.bg-light-gray { background-color: #f4f7fa; }
+
+.decor-circle {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: #f4f7fa;
+  border-radius: 50%;
+  top: -50px;
+  right: -50px;
+  z-index: 0;
+}
+
+/* Inputs */
+.form-control-custom, .form-select-custom {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid var(--input-border);
+  padding: 10px 0;
+  outline: none;
+  background: transparent;
+  color: var(--azul-marino);
+}
+
+.btn-primary-custom {
+  background: var(--azul-marino);
+  color: white;
+  border: none;
+  border-radius: 18px;
+  font-weight: bold;
+  box-shadow: 0 10px 20px rgba(10, 38, 120, 0.15);
+}
+
+/* Historial */
+.item-historial {
+  border-radius: 25px !important;
+  background: white;
+  border: none;
+}
+
+.icon-container {
+  width: 52px;
+  height: 52px;
+  background: #f4f7fa;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--azul-marino);
+}
+
+.badge-custom {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+.bg-success-light { background: #e2f9f3; }
+.bg-gray-light { background: #f0f2f5; }
+
+
+/* --- RESPONSIVIDAD --- */
+@media (max-width: 992px) {
+  .app-container { flex-direction: column; overflow-y: auto; }
+  .sidebar { width: 100%; height: auto; border-right: none; border-bottom: 1px solid #edf2f9; }
+  .content-area { overflow-y: visible; }
+}
+
+@media (max-width: 576px) {
+  .display-4 { font-size: 2.5rem; }
+  .card-custom { padding: 2rem !important; }
+}
