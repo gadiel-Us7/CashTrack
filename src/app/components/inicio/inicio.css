@@ -4,9 +4,9 @@
   --input-border: #eef2f8;
 }
 
-/* --- ESTRUCTURA FLUIDA (Igual a UMG) --- */
+/* Estructura fluida con el tamaño del navegador */
 .app-container {
-  display: flex !important; /* Mantiene sidebar y contenido siempre a la par */
+  display: flex !important;
   height: 100vh;
   width: 100%;
   overflow: hidden;
@@ -15,8 +15,8 @@
 
 .sidebar {
   width: 280px;
-  min-width: 280px; /* Evita que el menú se aplaste al encoger el navegador */
-  flex-shrink: 0;   /* Mantiene el ancho fijo */
+  min-width: 280px;
+  flex-shrink: 0;
   background-color: #ffffff;
   height: 100%;
   display: flex;
@@ -26,9 +26,9 @@
 }
 
 .content-area {
-  flex-grow: 1;      /* El contenido ocupa todo el resto del espacio */
+  flex-grow: 1;
   height: 100%;
-  overflow-y: auto;  /* Solo esta parte tiene scroll */
+  overflow-y: auto;
   padding-bottom: 40px;
 }
 
@@ -63,7 +63,7 @@
   top: -50px; right: -50px; z-index: 0;
 }
 
-/* Inputs con estilo limpio */
+/* Inputs limpios */
 .form-control-custom, .form-select-custom {
   border: none; border-bottom: 2px solid var(--input-border);
   padding: 10px 0; outline: none; background: transparent;
@@ -84,13 +84,11 @@
 .badge-custom { font-size: 10px; font-weight: 800; padding: 5px 10px; border-radius: 8px; }
 .bg-success-light { background: #e2f9f3; }
 
-/* --- AJUSTES DE TAMAÑO (Sin romper el Sidebar) --- */
+/* --- Ajustes de tamaño (no arruina el Sidebar) --- */
 @media (max-width: 1200px) {
   .sidebar { width: 240px; min-width: 240px; }
 }
 
 @media (max-width: 768px) {
   .display-4 { font-size: 2.2rem; }
-  /* Aquí podrías decidir si quieres que el sidebar se oculte, 
-     pero para el efecto UMG que pediste, lo dejamos fijo. */
 }
