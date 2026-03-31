@@ -1,0 +1,83 @@
+<!-- conversor.html -->
+<div class="app-container">
+    <app-nabvar></app-nabvar>
+    <main class="content-area">
+        <div class="converter-container">
+          <div class="converter-card">
+            <!-- Header -->
+            <div class="card-header">
+              <h1 class="title">Conversion de Moneda</h1>
+              <p class="subtitle">Puede saber el valor preciso en dolares de sus gastos.</p>
+            </div>
+        
+            <!-- Conversion Form -->
+            <div class="conversion-form">
+                <!-- Mensaje de error -->
+                <div *ngIf="error" class="alert alert-danger mb-3">
+                  <i class="bi bi-exclamation-triangle-fill"></i>
+                  {{ error }}
+                </div>
+                
+              <!-- From Currency Section -->
+              <div class="currency-section from-section">
+                <div class="currency-header">
+                  <span class="code">{{ fromCurrency }}</span>
+                  <span class="currency-name">({{ fromCurrency === 'GTQ' ? 'QUETZAL' : 'DOLLAR' }})</span>
+                </div>
+                <div class="currency-input-group">
+                  <input 
+                    type="number" 
+                    class="currency-input" 
+                    placeholder="0.00"
+                    [(ngModel)]="fromAmount"
+                    (ngModelChange)="onFromAmountChange($event)"
+                    step="any"
+                    [disabled]="isLoading"
+                  />
+                </div>
+              </div>
+          
+              <!-- Swap Button -->
+              <div class="swap-button">
+                <button class="btn-swap" (click)="swapCurrencies()" [disabled]="isLoading">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="20" viewBox="0 0 16 20" fill="none">
+                    <path d="M4 11V3.825L1.425 6.4L0 5L5 0L10 5L8.575 6.4L6 3.825V11H4ZM11 20L6 15L7.425 13.6L10 16.175V9H12V16.175L14.575 13.6L16 15L11 20Z" fill="white"/>
+                  </svg>
+                </button>
+              </div>
+              
+              <!-- To Currency Section -->
+              <div class="currency-section to-section">
+                <div class="currency-header">
+                  <span class="code">{{ toCurrency }}</span>
+                  <span class="currency-name">({{ toCurrency === 'GTQ' ? 'QUETZAL' : 'DOLLAR' }})</span>
+                </div>
+                <div class="currency-input-group result">
+                  <input 
+                    type="number" 
+                    class="currency-input" 
+                    placeholder="0.00"
+                    step="any"
+                    [value]="toAmount"
+                    readonly
+                  />
+                  <div *ngIf="isLoading" class="spinner-container">
+                    <div class="spinner-border text-success spinner-border-sm" role="status">
+                      <span class="visually-hidden">Cargando...</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+             
+
+              <!-- Mostrar tasa de cambio -->
+              <div class="exchange-rate-info" *ngIf="exchangeRate > 0 && !isLoading">
+                <i class="bi bi-info-circle"></i>
+                <span>1 {{ fromCurrency }} = {{ exchangeRate | number:'1.4-4' }} {{ toCurrency }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </main>
+</div>
