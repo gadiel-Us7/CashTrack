@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { Nabvar } from '../nabvar/nabvar';
 
 @Component({
-  selector: 'app-inicio',
+  selector: 'app-gastos',
   imports: [Nabvar],
-  templateUrl: './inicio.html',
-  styleUrl: './inicio.css',
+  templateUrl: './gastos.html',
+  styleUrl: './gastos.css',
 })
-export class Inicio {
+export class Gastos {
 
 }

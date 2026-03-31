@@ -1,0 +1,35 @@
+:host {
+  --azul-marino: #0a2678;
+  --fondo-app: #f8fafd;
+  --input-border: #eef2f8;
+}
+
+/* Estructura fluida con el tamaño del navegador */
+.app-container {
+  display: flex !important;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--fondo-app);
+}
+
+/* --- ESTILOS VISUALES --- */
+.azul-marino { color: var(--azul-marino); }
+
+.logo-box {
+  background: var(--azul-marino);
+  color: white; width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 8px;
+}
+.nav-link {
+  padding: 12px 15px; border-radius: 12px;
+  margin-bottom: 4px; transition: all 0.2s;
+  color: #4a5568 !important;
+}
+
+.nav-link.active {
+  background-color: #ebf0ff;
+  color: var(--azul-marino) !important;
+  font-weight: 600;
+}
