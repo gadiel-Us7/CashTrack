@@ -1,0 +1,67 @@
+.content-area {
+  flex-grow: 1;
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 40px;
+}
+
+.app-container {
+  display: flex !important;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--fondo-app);
+}
+
+.expenses-container {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  max-width: 100%;
+  padding: 20px;
+}
+
+.title-container{
+    display: flex;
+    width: 840px;
+    height: 136px;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+.title {
+  color: #172554;
+
+    font-size: 7vh;
+    font-style: normal;
+
+    line-height: 48px; /* 100% */
+    letter-spacing: -2.4px;
+}
+
+.expenses-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.expenses-table th {
+  text-align: left;
+  padding: 12px 8px;
+  font-weight: 600;
+  color: #6c757d;
+  border-bottom: 1px solid #e9ecef;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.expenses-table td {
+  padding: 12px 8px;
+  border-bottom: 1px solid #e9ecef;
+  color: #212529;
+}
+
+.expenses-table tr:last-child td {
+  border-bottom: none;
+}
+
+.expenses-table td:last-child {
+  font-weight: 500;
+}

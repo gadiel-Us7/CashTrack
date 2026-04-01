@@ -1,4 +1,29 @@
 <div class="app-container">
     <app-nabvar></app-nabvar>
-    
+    <main class="content-area">
+        <div class="expenses-container">
+            <div class="title-container"><h2 class="title">Historial de Gastos</h2></div>
+          
+
+          <table class="expenses-table">
+            <thead>
+              <tr>
+                <th>FECHA</th>
+                <th>CATEGORÍA</th>
+                <th>DESCRIPCION</th>
+                <th>MONTO</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let expense of expenses">
+                <td>{{ expense.date }}</td>
+                <td> {{ expense.category }}</td>
+                <td>{{ expense.description }}</td>
+                <td>{{ expense.amount | currency:'GTQ':'symbol-narrow':'1.2-2' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+    </main>
 </div>
