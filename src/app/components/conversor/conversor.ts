@@ -32,7 +32,7 @@ export class Conversor implements OnInit {
 
   // Método SOLO para cargar la tasa de cambio
   loadExchangeRateOnly(): void {
-    this.isLoading = true;
+    this.isLoading = false;
     this.error = '';
     
     this.currencyService.getExchangeRate(this.fromCurrency, this.toCurrency)
