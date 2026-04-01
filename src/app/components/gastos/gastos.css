@@ -56,6 +56,7 @@
   padding: 12px 8px;
   border-bottom: 1px solid #e9ecef;
   color: #212529;
+  vertical-align: middle;
 }
 
 .expenses-table tr:last-child td {
@@ -64,4 +65,21 @@
 
 .expenses-table td:last-child {
   font-weight: 500;
+}
+
+.category-name {
+  margin-left: 8px;
+}
+
+.amount {
+  font-weight: 500;
+}
+
+i {
+  font-size: 16px;
+  color: #6c757d;
+  width: 20px;
+  display: inline-block;
+  background-color: #ebf0ff;
+  border-radius: 5px;
 }

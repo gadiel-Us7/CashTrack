@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 interface Expense {
   date: string;
   category: string;
-  categoryColor: string;
+  categoryIcon: string;
   description: string;
   amount: number;
 }
@@ -27,34 +27,34 @@ interface CategorySummary {
 
 export class Gastos {
   
-  expenses: Expense[] = [
+expenses: Expense[] = [
     {
-      date: '24 Oct 14:20',
-      category: 'Comida y bebida',
-      categoryColor: '#dcfce7',
-      description: 'Restaurante el olvido',
+      date: '24 Oct 14:20 PM',
+      category: 'Food & Drink',
+      categoryIcon: 'bi bi-cup-straw',
+      description: 'The Gourmet Kitchen & Bistro',
       amount: 42.50
     },
     {
-      date: '23 Oct 08:15',
-      category: 'Transporte',
-      categoryColor: '#fee2e2',
+      date: '23 Oct 08:15 AM',
+      category: 'Transport',
+      categoryIcon: 'bi bi-taxi-front',
       description: 'Uber Technologies Inc.',
       amount: 18.20
     },
     {
-      date: '22 Oct 18:45',
-      category: 'Compras',
-      categoryColor: '#fff3e0',
-      description: 'Producto de Amazon',
+      date: '22 Oct 18:45 PM',
+      category: 'Shopping',
+      categoryIcon: 'bi bi-bag',
+      description: 'Amazon Web Services',
       amount: 149.99
     },
     {
-      date: '20 Oct 10:00',
-      category: 'Salida',
-      categoryColor: '#e0f2fe',
-      description: 'Caminata al volcán',
-      amount: 150.00
+      date: '20 Oct 10:00 AM',
+      category: 'Housing',
+      categoryIcon: 'bi bi-house-door',
+      description: 'Metropolitan Rent Services',
+      amount: 1250.00
     }
   ];
 
