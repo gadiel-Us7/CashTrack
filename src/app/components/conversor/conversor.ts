@@ -90,7 +90,7 @@ export class Conversor implements OnInit {
   calculateConversion(): void {
     if (this.fromAmount > 0 && this.exchangeRate > 0) {
       this.toAmount = parseFloat((this.fromAmount * this.exchangeRate).toFixed(2));
-      console.log(this.toAmount);
+      //console.log(this.toAmount);
     } else {
       this.toAmount = 0;
     }
