@@ -1,4 +1,4 @@
-  <nav class="sidebar shadow-sm">
+  <nav class="sidebar shadow-sm" class="sidebar-desktop" *ngIf="!isMobile">
     <div class="pt-4 px-4 mb-5">
       <div class="d-flex align-items-center mb-1">
         <div class="logo-box me-2"><i class="bi bi-bank2"></i></div>
@@ -34,3 +34,37 @@
       <small class="text-muted" style="font-size: 9px;">© 2026 CASHTRACK UI</small>
     </div>
   </nav>
+
+
+  <!-- Versión Mobile: Bottom Navigation -->
+<nav class="bottom-nav" *ngIf="isMobile">
+  <a class="bottom-nav-item" 
+     routerLink="/" 
+     routerLinkActive="active"
+     [routerLinkActiveOptions]="{ exact: true }">
+    <i class="bi bi-grid-1x2-fill"></i>
+    <span>Inicio</span>
+  </a>
+  
+  <a class="bottom-nav-item" 
+     routerLink="/gastos" 
+     routerLinkActive="active">
+    <i class="bi bi-journal-text"></i>
+    <span>Gastos</span>
+  </a>
+  
+  <a class="bottom-nav-item" 
+     routerLink="/conversor" 
+     routerLinkActive="active">
+    <i class="bi bi-cash-stack"></i>
+    <span>Convertir</span>
+  </a>
+  
+  <a class="bottom-nav-item" 
+     routerLink="/categorias" 
+     routerLinkActive="active">
+    <i class="bi bi-tags"></i>
+    <span>Categorias</span>
+  </a>
+  
+</nav>

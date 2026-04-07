@@ -96,7 +96,7 @@
     background-color: #00236F;
     border-radius: 10px;
     height: 10vh;
-    width: 5vw;
+    width: 8vw;
 }
 
 .swap-button button svg{
@@ -131,4 +131,23 @@
 .currency-name{
     color: #94A3B8;
     font-weight: 500;
+}
+
+@media (max-width: 767px){
+
+.card-header{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: #00236F;
+    font-size: 2vh;
+}
+
+.swap-button button{
+
+    height: 10vh;
+    width: 10vw;
+}
+
 }

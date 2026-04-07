@@ -9,10 +9,11 @@
 }
 
 .app-container {
-  display: flex !important;
+  
+  display: flex;
   height: 100vh;
   width: 100%;
-  overflow: hidden;
+
   background-color: var(--fondo-app);
 }
 
@@ -38,6 +39,11 @@
   margin-bottom: 2rem;
   flex-wrap: wrap;
   gap: 1rem;
+  color: #00236F;
+}
+
+.title{
+  font-weight: 500;
 }
 
 .btn-add-category {
@@ -359,7 +365,17 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .categorias-container {
+  .content-area {
+    flex-grow: 1;
+    height: 100%;
+    padding-bottom: 40px;
+}
+
+.app-container {
+  background-color: var(--fondo-app);
+}
+
+.categorias-container {
     padding: 1rem;
   }
   

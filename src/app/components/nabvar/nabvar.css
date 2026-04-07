@@ -49,3 +49,65 @@
   .display-4 { font-size: 2.2rem; }
 }
 
+
+
+/* === ESTILOS PARA MOBILE (Bottom Navigation) === */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 8px 16px;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+  border-top: 1px solid #edf2f9;
+  z-index: 1000;
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  color: #94A3B8;
+  transition: all 0.2s ease;
+  padding: 8px 12px;
+  border-radius: 12px;
+  flex: 1;
+  max-width: 70px;
+}
+
+.bottom-nav-item i {
+  font-size: 1.5rem;
+}
+
+.bottom-nav-item span {
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.bottom-nav-item.active {
+  color: #0a2678;
+  background: rgba(0, 108, 73, 0.1);
+}
+
+.bottom-nav-item.active i {
+  transform: translateY(-2px);
+}
+
+.bottom-nav-item:hover:not(.active) {
+  color: #00236F;
+  background: rgba(0, 35, 111, 0.05);
+}
+
+/* Ajuste para el contenido cuando hay bottom nav */
+@media (max-width: 768px) {
+  .content-area {
+    padding-bottom: 80px !important;
+  }
+}

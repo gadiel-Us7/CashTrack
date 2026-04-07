@@ -27,4 +27,44 @@
         </div>
 
     </main>
+
+  <div class="gastos-mobile-container">
+  <!-- ENCABEZADO -->
+  <div class="gastos-header">
+    <h2 class="gastos-title">Historial de Gastos</h2>
+    <p class="gastos-subtitle">Movimientos recientes</p>
+  </div>
+
+ 
+  <!-- LISTA PRINCIPAL DE GASTOS (mobile-first) -->
+  <div class="expenses-list">
+
+      <!-- CADA MOVIMIENTO -->
+      <div *ngFor="let expense of expenses" class="expense-card">
+        <div class="expense-icon">
+          <i [class]="expense.categoryIcon"></i>
+        </div>
+        <div class="expense-details">
+          <div class="expense-title-row">
+            <span class="expense-description">{{ expense.description }}</span>
+            <span class="expense-amount" [class.negative]="expense.amount < 0">
+              {{ expense.amount | currency:'GTQ':'symbol-narrow':'1.2-2' }}
+            </span>
+          </div>
+          <div class="expense-meta">
+            <span class="expense-category">{{ expense.category }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MENSAJE VACÍO -->
+    <div *ngIf="!expenses.length" class="empty-state">
+      <i class="bi bi-receipt"></i>
+      <p>Aún no hay movimientos registrados</p>
+    </div>
+  </div>
 </div>
+
+
+

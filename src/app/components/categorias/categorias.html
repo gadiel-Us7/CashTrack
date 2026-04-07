@@ -5,7 +5,7 @@
     <div class="categorias-container">
       <div class="categorias-header">
         <div>
-          <h2 class="fw-bold azul-marino mb-2">Categorías de gastos</h2>
+          <h2 class="azul-marino mb-2 title">Categorías de gastos</h2>
           <p class="text-muted">Organiza según la necesidad de tus categorías</p>
         </div>
         <button class="btn-add-category" (click)="openAddModal()">
@@ -41,9 +41,7 @@
           Crear tu primera categoría
         </button>
       </div>
-    </div>
-
-    <!-- Modal para agregar/editar categoría -->
+      <!-- Modal para agregar/editar categoría -->
     <div class="modal" [class.show]="showModal" (click)="closeModal()">
       <div class="modal-content" (click)="$event.stopPropagation()">
         <div class="modal-header">
@@ -95,4 +93,8 @@
         </div>
       </div>
     </div>
+</div>
+
+    
+
     

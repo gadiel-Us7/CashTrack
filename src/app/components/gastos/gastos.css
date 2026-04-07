@@ -30,7 +30,7 @@
   color: #172554;
 
     font-size: 7vh;
-    font-style: normal;
+   font-weight: 500;
 
     line-height: 48px; /* 100% */
     letter-spacing: -2.4px;
@@ -82,4 +82,158 @@ i {
   display: inline-block;
   background-color: #ebf0ff;
   border-radius: 5px;
+}
+
+
+/* ESTILO MOBILE PRINCIPAL */
+.gastos-mobile-container {
+  display: none;
+  margin: 0 auto;
+  padding: 16px;
+  background-color: #f8fafc;
+  min-height: 100vh;
+}
+
+/* HEADER */
+.gastos-header {
+  margin-bottom: 20px;
+}
+.gastos-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0a2678;
+  margin: 0 0 4px 0;
+}
+.gastos-subtitle {
+  color: #5b6e8c;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* FILTROS */
+.gastos-filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+.filter-chip {
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.filter-chip.active {
+  background: #0a2678;
+  color: white;
+  border-color: #0a2678;
+}
+
+
+/* TARJETA DE GASTO */
+.expense-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: white;
+  padding: 12px 16px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+  border: 1px solid #ecf3fa;
+  transition: all 0.2s;
+}
+.expense-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.expense-icon i {
+  font-size: 24px;
+  color: #1e293b;
+}
+.expense-details {
+  flex: 1;
+}
+.expense-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+.expense-description {
+  font-weight: 600;
+  font-size: 15px;
+  color: #0f172a;
+}
+.expense-amount {
+  font-weight: 700;
+  font-size: 15px;
+}
+.expense-amount.negative {
+  color: #dc2626;
+}
+.expense-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: #5b6e8c;
+}
+.expense-category {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.expense-time {
+  opacity: 0.7;
+}
+
+/* ESTADO VACÍO */
+.empty-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: #94a3b8;
+}
+.empty-state i {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+
+@media (max-width: 767px){
+  .expenses-container{
+    display: none;
+  }
+  .gastos-mobile-container {
+    display: block;
+    
+  }
+  .expense-card {
+    padding: 16px 20px;
+  }
+  .expense-title-row {
+    font-size: 16px;
+  }
+  .content-area {
+  flex-grow: inherit;
+  height: 100%;
+  padding-bottom: 40px;
+}
+
+.app-container {
+  background-color: var(--fondo-app);
+}
+
 }
