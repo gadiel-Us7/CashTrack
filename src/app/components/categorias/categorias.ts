@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Nabvar } from '../nabvar/nabvar';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Categoria } from '../../interfaces/categoria';
+import { CashtrackService } from '../../services/cashtrack';
+import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-categorias',
@@ -10,20 +13,11 @@ import { Categoria } from '../../interfaces/categoria';
   templateUrl: './categorias.html',
   styleUrl: './categorias.css',
 })
-export class Categorias {
-   // Datos de ejemplo (el otro desarrollador conectará con la API)
-  categories: Categoria[] = [
-    { id: 1, nombre: 'Alimentación', icono: 'bi bi-egg-fried' },
-    { id: 2, nombre: 'Transporte', icono: 'bi bi-bus-front' },
-    { id: 3, nombre: 'Compras', icono: 'bi bi-cart-fill'},
-    { id: 4, nombre: 'Vivienda', icono: 'bi bi-house-door' },
-    { id: 5, nombre: 'Entretenimiento', icono: 'bi bi-tv' },
-    { id: 6, nombre: 'Salud', icono: 'bi bi-heart-pulse'}
-  ];
+export class Categorias implements OnInit, OnDestroy {
+  categories: Categoria[] = [];
   
-  // Nueva categoría
   newCategory: Categoria = {
-    id: 0,
+    idCategoria: 0,
     nombre: '',
     icono: 'bi bi-tag'
   };
@@ -31,8 +25,8 @@ export class Categorias {
   showModal: boolean = false;
   editingCategory: Categoria | null = null;
   error: string = '';
+  loading: boolean = false;
   
-  // Lista de iconos disponibles
   availableIcons = [
     { name: 'Alimentación', value: 'bi bi-egg-fried' },
     { name: 'Compras', value: 'bi bi-cart-fill' },
@@ -53,35 +47,75 @@ export class Categorias {
     { name: 'Default', value: 'bi bi-tag' }
   ];
 
-  constructor() {}
+  private subscriptions: Subscription = new Subscription();
 
-  // Abrir modal para agregar categoría
+  constructor(
+    private cashtrackService: CashtrackService,
+    private route: ActivatedRoute
+  ) {}
+
+  ngOnInit(): void {
+    // Suscribirse a cambios de categorías
+    this.subscriptions.add(
+      this.cashtrackService.categorias$.subscribe(categorias => {
+        this.categories = categorias;
+      })
+    );
+    
+    // Recargar datos cada vez que se navega a este componente
+    this.subscriptions.add(
+      this.route.params.subscribe(() => {
+        console.log('Recargando datos de Categorías...');
+        this.cargarCategorias();
+      })
+    );
+    
+    this.cargarCategorias();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
+  cargarCategorias(): void {
+    this.loading = true;
+    this.cashtrackService.obtenerCategorias().subscribe({
+      next: () => {
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error al cargar categorías:', err);
+        this.error = 'No se pudieron cargar las categorías';
+        this.loading = false;
+      }
+    });
+  }
+
   openAddModal(): void {
     this.newCategory = {
-      id: this.getNextId(),
+      idCategoria: 0,
       nombre: '',
       icono: 'bi bi-tag'
     };
     this.editingCategory = null;
     this.showModal = true;
+    this.error = '';
   }
 
-  // Abrir modal para editar categoría
   openEditModal(category: Categoria): void {
     this.editingCategory = { ...category };
     this.newCategory = { ...category };
     this.showModal = true;
+    this.error = '';
   }
 
-  // Cerrar modal
   closeModal(): void {
     this.showModal = false;
-    this.newCategory = { id: 0, nombre: '', icono: 'bi bi-tag' };
+    this.newCategory = { idCategoria: 0, nombre: '', icono: 'bi bi-tag' };
     this.editingCategory = null;
     this.error = '';
   }
 
-  // Guardar categoría (crear o actualizar)
   saveCategory(): void {
     if (!this.newCategory.nombre.trim()) {
       this.error = 'El nombre de la categoría es requerido';
@@ -89,39 +123,69 @@ export class Categorias {
     }
 
     if (this.editingCategory) {
-      // Actualizar categoría existente
-      const index = this.categories.findIndex(c => c.id === this.editingCategory!.id);
-      if (index !== -1) {
-        this.categories[index] = { ...this.newCategory, id: this.editingCategory!.id };
-      }
+      this.updateCategory();
     } else {
-      // Crear nueva categoría
-      this.categories.push({ ...this.newCategory });
+      this.createCategory();
     }
-    
-    this.closeModal();
   }
 
-  // Eliminar categoría
-  deleteCategory(id: number): void {
+  createCategory(): void {
+    this.loading = true;
+    const categoriaData = {
+      nombre: this.newCategory.nombre,
+      icono: this.newCategory.icono
+    };
+
+    this.cashtrackService.crearCategoria(categoriaData).subscribe({
+      next: () => {
+        this.closeModal();
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error al crear categoría:', err);
+        this.error = 'Error al crear la categoría';
+        this.loading = false;
+      }
+    });
+  }
+
+  updateCategory(): void {
+    this.loading = true;
+    const categoriaData = {
+      nombre: this.newCategory.nombre,
+      icono: this.newCategory.icono
+    };
+
+    this.cashtrackService.actualizarCategoria(this.editingCategory!.idCategoria, categoriaData).subscribe({
+      next: () => {
+        this.closeModal();
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error al actualizar categoría:', err);
+        this.error = 'Error al actualizar la categoría';
+        this.loading = false;
+      }
+    });
+  }
+
+  deleteCategory(idCategoria: number): void {
     if (confirm('¿Estás seguro de eliminar esta categoría?')) {
-      this.categories = this.categories.filter(c => c.id !== id);
+      this.loading = true;
+      this.cashtrackService.eliminarCategoria(idCategoria).subscribe({
+        next: () => {
+          this.loading = false;
+        },
+        error: (err) => {
+          console.error('Error al eliminar categoría:', err);
+          this.error = 'Error al eliminar la categoría';
+          this.loading = false;
+        }
+      });
     }
   }
 
-  // Obtener siguiente ID disponible
-  getNextId(): number {
-    const maxId = this.categories.length > 0 
-      ? Math.max(...this.categories.map(c => c.id)) 
-      : 0;
-    return maxId + 1;
-  }
-
-  // Seleccionar icono
   selectIcon(iconValue: string): void {
     this.newCategory.icono = iconValue;
   }
-
-  // Obtener color de fondo para el icono (opcional)
-
 }

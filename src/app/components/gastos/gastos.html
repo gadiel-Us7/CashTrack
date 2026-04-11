@@ -2,69 +2,194 @@
     <app-nabvar></app-nabvar>
     <main class="content-area">
         <div class="expenses-container">
-            <div class="title-container"><h2 class="title">Historial de Gastos</h2></div>
+            <div class="title-container">
+                <h2 class="title">Historial de Gastos</h2>
+            </div>
           
-
-          <table class="expenses-table">
-            <thead>
-              <tr>
-                <th>FECHA</th>
-                <th>CATEGORÍA</th>
-                <th>DESCRIPCION</th>
-                <th>MONTO</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let expense of expenses">
-                <td>{{ expense.date }}</td>
-                <td>  <i [class]="expense.categoryIcon"></i>
-          <span class="category-name">{{ expense.category }}</span></td>
-                <td>{{ expense.description }}</td>
-                <td>{{ expense.amount | currency:'GTQ':'symbol-narrow':'1.2-2' }}</td>
-              </tr>
-            </tbody>
-          </table>
+            <table class="expenses-table">
+                <thead>
+                    <tr>
+                        <th>FECHA</th>
+                        <th>CATEGORÍA</th>
+                        <th>DESCRIPCION</th>
+                        <th>MONTO</th>
+                        <th>ACCIONES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let expense of expenses">
+                        <td>{{ expense.date }}</td>
+                        <td>
+                            <i [class]="expense.categoryIcon"></i>
+                            <span class="category-name">{{ expense.category }}</span>
+                        </td>
+                        <td>{{ expense.description }}</td>
+                        <td>{{ expense.amount | currency:'GTQ':'symbol-narrow':'1.2-2' }}</td>
+                        <td class="actions-cell">
+                            <button class="edit-btn" (click)="openEditModal(expense)" title="Editar">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="delete-btn" (click)="openDeleteModal(expense.idGasto, expense.description)" title="Eliminar">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-
     </main>
 
-  <div class="gastos-mobile-container">
-  <!-- ENCABEZADO -->
-  <div class="gastos-header">
-    <h2 class="gastos-title">Historial de Gastos</h2>
-    <p class="gastos-subtitle">Movimientos recientes</p>
-  </div>
-
- 
-  <!-- LISTA PRINCIPAL DE GASTOS (mobile-first) -->
-  <div class="expenses-list">
-
-      <!-- CADA MOVIMIENTO -->
-      <div *ngFor="let expense of expenses" class="expense-card">
-        <div class="expense-icon">
-          <i [class]="expense.categoryIcon"></i>
+    <div class="gastos-mobile-container">
+        <div class="gastos-header">
+            <h2 class="gastos-title">Historial de Gastos</h2>
+            <p class="gastos-subtitle">Movimientos recientes</p>
         </div>
-        <div class="expense-details">
-          <div class="expense-title-row">
-            <span class="expense-description">{{ expense.description }}</span>
-            <span class="expense-amount" [class.negative]="expense.amount < 0">
-              {{ expense.amount | currency:'GTQ':'symbol-narrow':'1.2-2' }}
-            </span>
-          </div>
-          <div class="expense-meta">
-            <span class="expense-category">{{ expense.category }}</span>
-          </div>
+
+        <div class="expenses-list">
+            <div *ngFor="let expense of expenses" class="expense-card">
+                <div class="expense-icon">
+                    <i [class]="expense.categoryIcon"></i>
+                </div>
+                <div class="expense-details">
+                    <div class="expense-title-row">
+                        <span class="expense-description">{{ expense.description }}</span>
+                        <span class="expense-amount" [class.negative]="expense.amount < 0">
+                            {{ expense.amount | currency:'GTQ':'symbol-narrow':'1.2-2' }}
+                        </span>
+                    </div>
+                    <div class="expense-meta">
+                        <span class="expense-category">{{ expense.category }}</span>
+                        <span class="expense-time">{{ expense.date }}</span>
+                    </div>
+                </div>
+                <div class="expense-actions">
+                    <button class="mobile-edit-btn" (click)="openEditModal(expense)" title="Editar">
+                        <i class="bi bi-pencil"></i>
+                    </button>
+                    <button class="mobile-delete-btn" (click)="openDeleteModal(expense.idGasto, expense.description)" title="Eliminar">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
+
+        <div *ngIf="!expenses.length" class="empty-state">
+            <i class="bi bi-receipt"></i>
+            <p>Aún no hay movimientos registrados</p>
+        </div>
     </div>
 
-    <!-- MENSAJE VACÍO -->
-    <div *ngIf="!expenses.length" class="empty-state">
-      <i class="bi bi-receipt"></i>
-      <p>Aún no hay movimientos registrados</p>
+    <!-- MODAL DE CONFIRMACIÓN PARA ELIMINAR -->
+    <div class="modal-overlay" *ngIf="showDeleteModal" (click)="closeDeleteModal()">
+        <div class="modal-container confirm-modal" (click)="$event.stopPropagation()">
+            <div class="modal-header confirm-header">
+                <div class="icon-circle">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                </div>
+                <button class="close-modal-btn" (click)="closeDeleteModal()">
+                    <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body confirm-body">
+                <h3 class="confirm-title">¿Eliminar gasto?</h3>
+                <p class="confirm-message">
+                    ¿Estás seguro de que deseas eliminar el gasto 
+                    <strong>"{{ deleteExpenseDescription }}"</strong>?
+                </p>
+                <p class="confirm-warning">
+                    <i class="bi bi-info-circle"></i>
+                    Esta acción no se puede deshacer.
+                </p>
+            </div>
+
+            <div class="modal-footer confirm-footer">
+                <button type="button" class="cancel-btn" (click)="closeDeleteModal()" >
+                    Cancelar
+                </button>
+                <button type="button" class="delete-confirm-btn" (click)="deleteGasto()">
+                    
+                    <span>Eliminar</span>
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
+<!-- MODAL DE EDICIÓN -->
+<div class="modal-overlay" *ngIf="showEditModal" (click)="closeModal()">
+    <div class="modal-container" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h3>Editar Gasto</h3>
+            <button class="close-modal-btn" (click)="closeModal()">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+        
+        <div class="modal-body">
+            <div class="form-group" *ngIf="error" class="error-message">
+                {{ error }}
+            </div>
+            
+            <div class="form-group">
+                <label for="descripcion">Descripción *</label>
+                <input 
+                    type="text" 
+                    id="descripcion" 
+                    [(ngModel)]="editingExpense.descripcion" 
+                    placeholder="Ej: Compra de supermercado"
+                    class="form-control">
+            </div>
 
+            <div class="form-group">
+                <label for="monto">Monto *</label>
+                <input 
+                    type="number" 
+                    id="monto" 
+                    [(ngModel)]="editingExpense.monto" 
+                    placeholder="0.00"
+                    step="0.01"
+                    class="form-control">
+            </div>
 
+            <div class="form-group">
+                <label for="categoria">Categoría *</label>
+                <select 
+                    id="categoria" 
+                    [(ngModel)]="editingExpense.categoria" 
+                    class="form-control">
+                    <option value="" disabled>Selecciona una categoría</option>
+                    <option *ngFor="let categoria of categorias" [value]="categoria.nombre">
+                        {{ categoria.nombre }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="fecha">Fecha</label>
+                <input 
+                    type="datetime-local" 
+                    id="fecha" 
+                    [(ngModel)]="editingExpense.fecha" 
+                    class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="detalle">Detalle (opcional)</label>
+                <textarea 
+                    id="detalle" 
+                    [(ngModel)]="editingExpense.detalle" 
+                    placeholder="Información adicional del gasto..."
+                    rows="3"
+                    class="form-control"></textarea>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="cancel-btn" (click)="closeModal()">Cancelar</button>
+            <button type="button" class="save-btn" (click)="saveGasto()">
+                <span>Guardar</span>
+            </button>
+        </div>
+    </div>
+</div>
