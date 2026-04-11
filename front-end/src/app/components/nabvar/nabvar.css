@@ -1,0 +1,113 @@
+:host {
+  --azul-marino: #0a2678;
+  --fondo-app: #f8fafd;
+  --input-border: #eef2f8;
+}
+
+/* Estructura fluida con el tamaño del navegador */
+
+
+/* --- ESTILOS VISUALES --- */
+.azul-marino { color: var(--azul-marino); }
+
+.logo-box {
+  background: var(--azul-marino);
+  color: white; width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 8px;
+}
+.nav-link {
+  padding: 12px 15px; border-radius: 12px;
+  margin-bottom: 4px; transition: all 0.2s;
+  color: #4a5568 !important;
+}
+
+.nav-link.active {
+  background-color: #ebf0ff;
+  color: var(--azul-marino) !important;
+  font-weight: 600;
+}
+
+.sidebar {
+  width: 280px;
+  min-width: 280px;
+  flex-shrink: 0;
+  background-color: #ffffff;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #edf2f9;
+  z-index: 1000;
+}
+
+/* --- Ajustes de tamaño (no arruina el Sidebar) --- */
+@media (max-width: 1200px) {
+  .sidebar { width: 240px; min-width: 240px; }
+}
+
+@media (max-width: 768px) {
+  .display-4 { font-size: 2.2rem; }
+}
+
+
+
+/* === ESTILOS PARA MOBILE (Bottom Navigation) === */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 8px 16px;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
+  border-top: 1px solid #edf2f9;
+  z-index: 1000;
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  color: #94A3B8;
+  transition: all 0.2s ease;
+  padding: 8px 12px;
+  border-radius: 12px;
+  flex: 1;
+  max-width: 70px;
+}
+
+.bottom-nav-item i {
+  font-size: 1.5rem;
+}
+
+.bottom-nav-item span {
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.bottom-nav-item.active {
+  color: #0a2678;
+  background: rgba(0, 108, 73, 0.1);
+}
+
+.bottom-nav-item.active i {
+  transform: translateY(-2px);
+}
+
+.bottom-nav-item:hover:not(.active) {
+  color: #00236F;
+  background: rgba(0, 35, 111, 0.05);
+}
+
+/* Ajuste para el contenido cuando hay bottom nav */
+@media (max-width: 768px) {
+  .content-area {
+    padding-bottom: 80px !important;
+  }
+}
