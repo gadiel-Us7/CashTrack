@@ -1,0 +1,6 @@
+@CashTrackApi_HostAddress = http://localhost:5095
+
+GET {{CashTrackApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

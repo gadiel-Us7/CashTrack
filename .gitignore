@@ -1,4 +1,28 @@
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+# .gitignore en la raíz del proyecto
+
+# Frontend (Angular)
+frontend/node_modules/
+frontend/.angular/
+frontend/dist/
+frontend/.env
+frontend/*.log
+
+# Backend (.NET)
+backend/bin/
+backend/obj/
+backend/*.user
+backend/*.suo
+backend/appsettings.Development.json
+
+# Visual Studio
+.vs/
+*.swp
+*.swo
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
 
 # Compiled output
 /dist
